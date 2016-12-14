@@ -78,7 +78,7 @@ static CGFloat lzTabBarHeight = 49.0;
         
         LZTabBarConfig *config = [[LZTabBarConfig alloc]init];
         
-        NSAssert(block, @"Param in zhe function, can not be nil");
+        NSAssert(block, @"Param 'block' in zhe function, can not be nil");
         if (block) {
             
             _config = block(config);
@@ -118,8 +118,26 @@ static CGFloat lzTabBarHeight = 49.0;
 - (void)setupTabBar {
     
     NSMutableArray *items = [NSMutableArray array];
+    
+    LZTabBarItemType type;
+    
+    if ((_config.selectedImages.count > 0 || _config.normalImages.count > 0) && _config.titles.count > 0) {
+        type = LZTabBarItemTypeDefault;
+    } else if ((_config.selectedImages.count > 0 || _config.normalImages.count > 0) && _config.titles.count <= 0) {
+        
+        type = LZTabBarItemTypeImage;
+    } else if ((_config.selectedImages.count <= 0 && _config.normalImages.count <= 0) && _config.titles.count > 0) {
+        
+        type = LZTabBarItemTypeText;
+    } else {
+        
+        type = LZTabBarItemTypeDefault;
+    }
+    
     for (int i = 0; i < _config.viewControllers.count; i++) {
         LZTabBarItem *item = [[LZTabBarItem alloc]init];
+        
+        item.type = type;
         
         if (i == 0) {
             

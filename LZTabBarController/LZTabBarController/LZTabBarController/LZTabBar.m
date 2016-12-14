@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) UIVisualEffectView *effectView;
 @property (nonatomic, strong) UIView *topLine;
-@property (nonatomic, strong) UIView *contentView;
 @end
 @implementation LZTabBar
 
@@ -48,16 +47,6 @@
     return _effectView;
 }
 
-- (UIView *)contentView {
-    if (_contentView == nil) {
-        
-        _contentView = [[UIView alloc]init];
-        _contentView.backgroundColor = [UIColor clearColor];
-        [self addSubview:_contentView];
-    }
-    
-    return _contentView;
-}
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -171,18 +160,40 @@ static NSInteger defaultTag = 100000;
     
     CGFloat space = 6.0;
     
-    if (self.icon.length > 0 && self.title.length > 0) {
-        
-        CGFloat iconHeight = (CGRectGetHeight(self.frame) - space * 3)*2/3.0 ;
-        self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2 * space, iconHeight);
-        self.titleLabel.frame = CGRectMake(space, CGRectGetMaxY(self.iconImageView.frame) + space, CGRectGetWidth(self.frame) - 2*space, iconHeight/2.0);
-    } else if (self.icon.length > 0 && self.title.length <= 0) {
-        
-        self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
-    } else if (self.title.length > 0 && self.icon.length <= 0) {
-        
-        self.titleLabel.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
+    switch (self.type) {
+        case LZTabBarItemTypeDefault: {
+            
+            CGFloat iconHeight = (CGRectGetHeight(self.frame) - space * 3)*2/3.0 ;
+            self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2 * space, iconHeight);
+            self.titleLabel.frame = CGRectMake(space, CGRectGetMaxY(self.iconImageView.frame) + space, CGRectGetWidth(self.frame) - 2*space, iconHeight/2.0);
+        }
+            break;
+        case LZTabBarItemTypeImage: {
+            
+            self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
+        }
+            break;
+        case LZTabBarItemTypeText: {
+            
+            self.titleLabel.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
+        }
+            break;
+            
+        default:
+            break;
     }
+//    if (self.icon.length > 0 && self.title.length > 0) {
+//        
+//        CGFloat iconHeight = (CGRectGetHeight(self.frame) - space * 3)*2/3.0 ;
+//        self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2 * space, iconHeight);
+//        self.titleLabel.frame = CGRectMake(space, CGRectGetMaxY(self.iconImageView.frame) + space, CGRectGetWidth(self.frame) - 2*space, iconHeight/2.0);
+//    } else if (self.icon.length > 0 && self.title.length <= 0) {
+//        
+//        self.iconImageView.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
+//    } else if (self.title.length > 0 && self.icon.length <= 0) {
+//        
+//        self.titleLabel.frame = CGRectMake(space, space, CGRectGetWidth(self.frame) - 2*space, CGRectGetHeight(self.frame) - 2*space);
+//    }
 }
 
 - (void)itemClicked:(UITapGestureRecognizer *)tap {

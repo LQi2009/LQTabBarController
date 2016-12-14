@@ -37,7 +37,7 @@
         
         config.viewControllers = @[homeVC, mapVC, aboutVC,homeVC1];
         
-        config.normalImages = @[@"tabbar_mainframe", @"tabbar_contacts", @"tabbar_discover",@"tabbar_me"];
+//        config.normalImages = @[@"tabbar_mainframe", @"tabbar_contacts", @"tabbar_discover",@"tabbar_me"];
         config.titles = @[@"微信",@"通讯录",@"发现",@"我"];
         
         config.selectedImages = @[@"tabbar_mainframeHL", @"tabbar_contactsHL", @"tabbar_discoverHL",@"tabbar_meHL"];

@@ -23,13 +23,21 @@
 @end
 // ********************************************************
 #pragma mark - LZTabBarItem
+
+typedef enum : NSUInteger {
+    
+    LZTabBarItemTypeDefault,
+    LZTabBarItemTypeImage,
+    LZTabBarItemTypeText,
+} LZTabBarItemType;
+
 @protocol LZTabBarItemDelegate;
 @interface LZTabBarItem : UIView
 
 @property (nonatomic, copy) NSString *icon;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIColor *titleColor;
-
+@property (nonatomic, assign) LZTabBarItemType type;
 @property (nonatomic, assign) id <LZTabBarItemDelegate> delegate;
 @end
 
